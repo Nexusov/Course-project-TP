@@ -1,0 +1,90 @@
+﻿@*@model IEnumerable<Course_Project_TP_6.Models.Users>*@
+@model Course_Project_TP_6.Models.Users
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @*@Html.DisplayNameFor(model => model.UserName)*@ Имя
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.UserLastName)*@ Фамилия
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.UserPatronymic)*@ Отчество
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.CityOfBirth)*@ Город
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Email)*@ Email
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Password)*@
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.PhoneNumber)*@ Телефон
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.UserDateOfBirth)*@ Дата рождения
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Gender.Name)*@ Пол
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Role.Name)*@
+        </th>
+        <th></th>
+    </tr>
+
+    <tr>
+        <td>
+            @Html.DisplayFor(model => model.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.UserLastName)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.UserPatronymic)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.CityOfBirth)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Email)
+        </td>
+        <td>
+            @*@Html.DisplayFor(model => model.Password)*@
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.UserDateOfBirth)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Gender.Name)
+        </td>
+        <td>
+        @*
+            <!-- @Html.ActionLink("Edit", "Edit", new { id=model.User_Id })  -->
+            <!-- | -->
+            <!-- @Html.ActionLink("Details", "Details", new { id=item.User_Id }) | -->
+            <!-- @Html.ActionLink("Delete", "Delete", new { id=item.User_Id }) -->
+        *@
+        </td>
+    </tr>
+
+
+
+
+
+</table>
