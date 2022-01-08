@@ -11,7 +11,8 @@ namespace Course_Project_TP_6.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Orders
     {
         public int Order_Id { get; set; }
@@ -19,6 +20,7 @@ namespace Course_Project_TP_6.Models
         public int Status_Id { get; set; }
         public int OrderType_Id { get; set; }
         public string OrderName { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyy}", ApplyFormatInEditMode = true)]
         public System.DateTime CreationDate { get; set; }
     
         public virtual OrderType OrderType { get; set; }

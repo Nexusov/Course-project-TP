@@ -11,11 +11,13 @@ namespace Course_Project_TP_6.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Registration
     {
         public int Registration_Id { get; set; }
         public int Passport_Id { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyy}", ApplyFormatInEditMode = true)]
         public System.DateTime RegistrationDate { get; set; }
         public string Region { get; set; }
         public string City { get; set; }

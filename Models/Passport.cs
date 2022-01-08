@@ -11,7 +11,8 @@ namespace Course_Project_TP_6.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Passport
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,6 +24,7 @@ namespace Course_Project_TP_6.Models
         public int Passport_Id { get; set; }
         public int User_Id { get; set; }
         public string IssuedBy { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyy}", ApplyFormatInEditMode = true)]
         public System.DateTime DateOfIssue { get; set; }
         public int DepartamentCode { get; set; }
         public int Number { get; set; }

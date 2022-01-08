@@ -133,6 +133,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\PassportsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="DAO\DAO.cs" />
@@ -264,6 +265,11 @@
     <Content Include="Views\Roles\Details.cshtml" />
     <Content Include="Views\Roles\Edit.cshtml" />
     <Content Include="Views\Roles\Index.cshtml" />
+    <Content Include="Views\Passports\Create.cshtml" />
+    <Content Include="Views\Passports\Delete.cshtml" />
+    <Content Include="Views\Passports\Details.cshtml" />
+    <Content Include="Views\Passports\Edit.cshtml" />
+    <Content Include="Views\Passports\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

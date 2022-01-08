@@ -11,11 +11,13 @@ namespace Course_Project_TP_6.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class BirthCertificate
     {
         public int BirthCertificate_Id { get; set; }
         public int User_Id { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyy}", ApplyFormatInEditMode = true)]
         public System.DateTime DateOfIssue { get; set; }
         public string IssuedBy { get; set; }
         public string MothersFIO { get; set; }
