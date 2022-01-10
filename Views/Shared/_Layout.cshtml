@@ -29,12 +29,13 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li>@Html.ActionLink("Профиль", "Index", "Users")</li>
-                        <li><a href="@Url.Action("Logout", "Login")">Logout </a></li>
+                        <li>@Html.ActionLink("Мои заявки", "Index", "Orders")</li>
+                        <li>@Html.ActionLink("Выход", "Logout", "Login")</li>
                     }
                     else
                     {
-                        <li>@Html.ActionLink("Login", "Login", "Login")</li>
-                        <li>@Html.ActionLink("Register", "Register", "Login")</li>
+                        <li>@Html.ActionLink("Войти", "Login", "Login")</li>
+                        <li>@Html.ActionLink("Регистрация", "Register", "Login")</li>
                     }
                 </ul>
                

@@ -27,15 +27,26 @@ namespace Course_Project_TP_6.Models
     
         public int User_Id { get; set; }
         public int Role_Id { get; set; }
+        [Required]
         public int Gender_Id { get; set; }
+        [Required]
         public string UserName { get; set; }
+        [Required]
         public string UserLastName { get; set; }
+        [Required]
         public string UserPatronymic { get; set; }
+        [Required]
         public string CityOfBirth { get; set; }
+        [Required, EmailAddress]
         public string Email { get; set; }
+
+        [Required]
+        [StringLength(16, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 5)]
         public string Password { get; set; }
+        [Required]
         public string PhoneNumber { get; set; }
 
+        [Required]
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyy}", ApplyFormatInEditMode = true)]
         public System.DateTime UserDateOfBirth { get; set; }
     

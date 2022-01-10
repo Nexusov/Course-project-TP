@@ -24,23 +24,30 @@ namespace Course_Project_TP_6.Controllers
         [HttpPost]
         public ActionResult Register(Users users)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(users);
+            }
+
+            users.Role_Id = 1;
             db.Users.Add(users);
             try {
                 db.SaveChanges();
                 return RedirectToAction("Index", "Home"); 
             } catch (Exception ex) {
-                Debug.WriteLine($"<Register()> Ошибка при добавлении записи: {ex.Message}");
+                Debug.WriteLine($"<Register()> Ошибка при добавлении записи: {ex}");
                 return RedirectToAction("Error", "Shared");
             }
         }
+
         public ActionResult Login()
         {
             return View();
         }
 
-        [HttpPost]
+        /*[HttpPost]
         public ActionResult Login(Login login)
-        {
+        {            
             Users user = db.Users.Where(x => x.Email == login.Email && x.Password == login.Password).FirstOrDefault();
             // List<Users> userslist = usersDAO.GetAllRecords();
             // bool checkinfo = false;
@@ -63,7 +70,32 @@ namespace Course_Project_TP_6.Controllers
             {
                 return View();
             }
+        }*/
+
+        [HttpPost]
+        public ActionResult Login(string Email, string Password)
+        {
+            var hasErrors = false;
+
+            if (!Email.Contains("@"))
+            {
+                ModelState.AddModelError("Email", "Некорректный email");
+                hasErrors = true;
+            }
+
+            if (hasErrors) return View();
+
+            Users user = db.Users
+                .Where(x => x.Email == Email && x.Password == Password)
+                .FirstOrDefault();
+            if (user != null)
+            {
+                FormsAuthentication.SetAuthCookie(Email, true);
+                return RedirectToAction("Index", "Home");
+            }
+            return View();
         }
+
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();

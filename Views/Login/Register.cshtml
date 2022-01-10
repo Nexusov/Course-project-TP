@@ -33,10 +33,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Gender_Id, "Gender_Id", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.RadioButtonFor(model => model.Gender_Id, 1)  
-                Male  
-                @Html.RadioButtonFor(model => model.Gender_Id, 2)
-                Female  
+                
+                <label class="radio-inline">@Html.RadioButtonFor(model => model.Gender_Id, 1)Male</label>
+                <label class="radio-inline">@Html.RadioButtonFor(model => model.Gender_Id, 2)Female</label>
                 <!-- <label class="radio-inline">
                     @Html.RadioButtonFor(model => model.Gender_Id, "1", new { @class = "control-label col-md-2" })
                     Male
@@ -45,7 +44,7 @@
                     @Html.RadioButtonFor(model => model.Gender_Id, "2", new { @Name = "gender" })
                     Female
                 </label> -->
-                @*@Html.DropDownList("Gender_Id", null, htmlAttributes: new { @class = "form-control" })*@
+                @*@Html.DropDownListFor(model => model.Gender, null, htmlAttributes: new { @class = "form-control" })*@
                 @Html.ValidationMessageFor(model => model.Gender_Id, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -110,7 +109,7 @@
             @Html.LabelFor(model => model.UserDateOfBirth, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @*@Html.TextBoxFor(model =>model.UserDateOfBirth, new { type="date" })*@
-                @*@Html.EditorFor(model => model.UserDateOfBirth, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.EditorFor(model => model.UserDateOfBirth, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.UserDateOfBirth, "", new { @class = "text-danger" })
             </div>
         </div>

@@ -101,7 +101,7 @@
                 @passport.IssuedBy
             </td>
             <td>
-                @passport.DateOfIssue
+                @passport.DateOfIssue.ToString("dd.MM.yyyy")
             </td>
         </tr>
     </table>
@@ -155,9 +155,7 @@
                 </td>
             </tr>
         </table>
-
     }
-
 }
 
 @if (Model.SNILS.Count != 0) 
@@ -193,7 +191,7 @@
                 Номер
             </th>
             <th>
-                Дата создания
+                Дата выдачи
             </th>
             <th>
                 Кем выдан
@@ -211,7 +209,7 @@
                 @certificate.Number
             </td>
             <td>
-                @certificate.DateOfIssue
+                @certificate.DateOfIssue.ToString("dd.MM.yyyy")
             </td>
             <td>
                 @certificate.IssuedBy
@@ -255,10 +253,10 @@
                 @driv_lic.Number
             </td>
             <td>
-                @driv_lic.DateOfIssue
+                @driv_lic.DateOfIssue.ToString("dd.MM.yyyy")
             </td>
             <td>
-                @driv_lic.ExpiringDate
+                @driv_lic.ExpiringDate.ToString("dd.MM.yyyy")
             </td>
             <td>
                 @driv_lic.CityOfIssue
