@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Course_Project_TP_6.Models;
+// using Course_Project_TP_6.Models.CreditCard;
 
 namespace Course_Project_TP_6.Controllers
 {
@@ -20,18 +21,25 @@ namespace Course_Project_TP_6.Controllers
         public ActionResult Index()
         {
             Users currentUser = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
+
             IQueryable<Orders> orders;
-            if (currentUser.Role_Id == 1)
+            bool isAdmin = currentUser.Role_Id == 2;
+            if (!isAdmin)
             {
                 orders = db.Orders.Include(o => o.OrderType)
                     .Include(o => o.OrderStatus)
                     .Include(o => o.Users)
-                    .Where(x => x.User_Id = currentUser.User_Id);
+                    .Where(x => x.User_Id == currentUser.User_Id);
             }
             else 
             {
-                orders = db.Orders.Include(o => o.OrderType).Include(o => o.OrderStatus).Include(o => o.Users);
+                orders = db.Orders.Include(o => o.OrderType)
+                    .Include(o => o.OrderStatus)
+                    .Include(o => o.Users)
+                    .OrderBy(p => p.Status_Id);
             }
+
+            ViewBag.IsAdmin = isAdmin;
             return View(orders.ToList());
         }
 
@@ -64,7 +72,7 @@ namespace Course_Project_TP_6.Controllers
         public ActionResult Create([Bind(Include = "Order_Id,User_Id,Status_Id,OrderType_Id,OrderName,CreationDate")] Orders orders)
         {
             Users currentUser = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
-            orders.User_Id = user.User_Id;
+            orders.User_Id = currentUser.User_Id;
             orders.Status_Id = 1;
             orders.CreationDate = DateTime.Now;
 
@@ -74,16 +82,32 @@ namespace Course_Project_TP_6.Controllers
                 try 
                 {
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Poshlina");
                 }
                 catch (Exception ex) 
                 {
                     Debug.WriteLine($"<Register()> Ошибка при добавлении записи: {ex}");
+                    return View(orders);
                 }
             }
 
             ViewBag.OrderType_Id = new SelectList(db.OrderType, "OrderType_Id", "Name", orders.OrderType_Id);
             return View(orders);
+        }
+
+        // GET: Orders/Poshlina
+        [Authorize]
+        public ActionResult Poshlina()
+        {
+            return View();
+        }
+
+        // POST: Orders/Poshlina
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Poshlina(CreditCard card)
+        {
+            return RedirectToAction("Index");
         }
 
         // GET: Orders/Edit/5

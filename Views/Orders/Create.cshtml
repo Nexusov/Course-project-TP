@@ -18,7 +18,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.OrderType_Id, "OrderType_Id", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("OrderType_Id", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("OrderType_Id", null, htmlAttributes: new { @class = "form-control test123" })
                 @Html.ValidationMessageFor(model => model.OrderType_Id, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -30,6 +30,32 @@
                 @Html.ValidationMessageFor(model => model.OrderName, "", new { @class = "text-danger" })
             </div>
         </div>
+
+        <div class="form-group hiden1" style="display: none;">
+            @Html.Label("OldNumber", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.Editor("OldNumber", new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group hiden1" style="display: none;">
+            @Html.Label("Photo", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.Editor("Photo", new { htmlAttributes = new { @class = "form-control", type = "file", accept="image/png, image/jpeg" } })
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            var hidens = document.querySelectorAll('.hiden1');
+            var asd = document.querySelector('.test123');
+            asd.onchange = () => {
+                if (asd.value == 2) {
+                    hidens.forEach((hiden1) => hiden1.style.display = "block");
+                } else {
+                    hidens.forEach((hiden1) => hiden1.style.display = "none");
+                }
+            }
+        </script>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

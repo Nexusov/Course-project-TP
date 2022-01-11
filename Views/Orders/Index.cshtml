@@ -24,7 +24,7 @@
             @Html.DisplayNameFor(model => model.OrderStatus.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Users.UserName)
+            User FIO
         </th>
         <th></th>
     </tr>
@@ -44,13 +44,24 @@
             @Html.DisplayFor(modelItem => item.OrderStatus.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Users.UserName)
+            @item.Users.UserName
+            @item.Users.UserLastName
+            @item.Users.UserPatronymic
         </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Order_Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Order_Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Order_Id })
-        </td>
+
+        @if (ViewBag.IsAdmin) {
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.Order_Id }) |
+                @Html.ActionLink("Details", "Details", new { id=item.Order_Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.Order_Id })
+            </td>
+        } 
+        else 
+        {
+            <td>
+                @Html.ActionLink("Delete", "Delete", new { id=item.Order_Id })
+            </td>
+        }
     </tr>
 }
 

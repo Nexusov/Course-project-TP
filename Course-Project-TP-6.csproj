@@ -149,6 +149,7 @@
     <Compile Include="Models\Category.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CreditCard.cs" />
     <Compile Include="Models\DriversLicense.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
