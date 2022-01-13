@@ -4,18 +4,24 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>СНИЛСы</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Добавить новый СНИЛС", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Number)
+            @*@Html.DisplayNameFor(model => model.Number)*@ Номер
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Users.UserName)
+            @*@Html.DisplayNameFor(model => model.Users.UserName)*@ Имя
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Users.UserName)*@ Фамилия
+        </th> 
+        <th>
+            @*@Html.DisplayNameFor(model => model.Users.UserName)*@ Отчество
         </th>
         <th>
             @Html.DisplayNameFor(model => model.User_Id)
@@ -30,6 +36,12 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Users.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Users.UserLastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Users.UserPatronymic)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.User_Id)

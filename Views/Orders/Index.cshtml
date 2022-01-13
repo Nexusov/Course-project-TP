@@ -4,10 +4,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Заявки</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Создать новую заявку", "Create")
 </p>
 <table class="table">
     <tr>
@@ -17,10 +17,10 @@
             </th>
         }
         <th>
-            @Html.DisplayNameFor(model => model.OrderName)
+            @*@Html.DisplayNameFor(model => model.OrderName)*@ Название заявки
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CreationDate)
+            @*@Html.DisplayNameFor(model => model.CreationDate)*@ Дата создания
         </th>
         <th>
             @*@Html.DisplayNameFor(model => model.OrderType.Name)*@ Тип заявки
@@ -29,7 +29,7 @@
             @*@Html.DisplayNameFor(model => model.OrderStatus.Name)*@ Статус заявки
         </th>
         <th>
-            User FIO
+            ФИО пользователя
         </th>
         <th></th>
     </tr>

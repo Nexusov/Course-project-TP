@@ -4,42 +4,36 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Водительские права</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Добавить новые водительские права", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @*@Html.DisplayNameFor(model => model.DateOfIssue)*@  Дата выдачи
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DateOfIssue)
+            @*@Html.DisplayNameFor(model => model.ExpiringDate)*@ Дата окончания срока действия
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ExpiringDate)
+            @*@Html.DisplayNameFor(model => model.CityOfIssue)*@ Город выдачи
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CityOfIssue)
+            @*@Html.DisplayNameFor(model => model.Number)*@ Номер
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Number)
+            @*@Html.DisplayNameFor(model => model.Category.Name)*@ Категория
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Category.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Users.UserName)
+            @*@Html.DisplayNameFor(model => model.Users.UserName)*@ Имя
         </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.DateOfIssue)
         </td>
