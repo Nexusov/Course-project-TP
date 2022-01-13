@@ -66,8 +66,7 @@ namespace Course_Project_TP_6.Controllers
         }
 
         // POST: Registrations/Create
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Registration_Id,Passport_Id,RegistrationDate,Region,City,District,Street,Building,Apartament")] Registration registration)
@@ -122,8 +121,7 @@ namespace Course_Project_TP_6.Controllers
         }
 
         // POST: Registrations/Edit/5
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Registration_Id,Passport_Id,RegistrationDate,Region,City,District,Street,Building,Apartament")] Registration registration)

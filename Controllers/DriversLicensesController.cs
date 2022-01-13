@@ -67,8 +67,7 @@ namespace Course_Project_TP_6.Controllers
         }
 
         // POST: DriversLicenses/Create
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "DriversLicense_Id,User_Id,Category_Id,Name,DateOfIssue,ExpiringDate,CityOfIssue,Number")] DriversLicense driversLicense)
@@ -118,8 +117,7 @@ namespace Course_Project_TP_6.Controllers
         }
 
         // POST: DriversLicenses/Edit/5
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "DriversLicense_Id,User_Id,Category_Id,Name,DateOfIssue,ExpiringDate,CityOfIssue,Number")] DriversLicense driversLicense)

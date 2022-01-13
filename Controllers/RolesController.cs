@@ -64,8 +64,7 @@ namespace Course_Project_TP_6.Controllers
         }
 
         // POST: Roles/Create
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Role_Id,Name")] Role role)
@@ -110,8 +109,7 @@ namespace Course_Project_TP_6.Controllers
         }
 
         // POST: Roles/Edit/5
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Role_Id,Name")] Role role)

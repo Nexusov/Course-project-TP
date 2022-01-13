@@ -27,15 +27,13 @@ namespace Course_Project_TP_6.Controllers
             // var users = db.Users.Include(u => u.Gender).Include(u => u.Role);
             Users user = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
 
-            // var userID = usersDAO.GetRecordId(User.Identity.Name);
-            // Users user = db.Users.Find(userID.User_Id);
             return View(user);
         }
 
         // GET: Users/Details/5
         public ActionResult Details(int? id)
         {
-           // Users users_Id = db.Users.Find(id);
+
             Users currentUser = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
             bool isAdmin = currentUser.Role_Id == 2;
             if (!isAdmin)
@@ -71,8 +69,7 @@ namespace Course_Project_TP_6.Controllers
         }
 
         // POST: Users/Create
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "User_Id,Role_Id,Gender_Id,UserName,UserLastName,UserPatronymic,CityOfBirth,Email,Password,PhoneNumber,UserDateOfBirth")] Users users)
@@ -121,8 +118,7 @@ namespace Course_Project_TP_6.Controllers
         }
 
         // POST: Users/Edit/5
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "User_Id,Role_Id,Gender_Id,UserName,UserLastName,UserPatronymic,CityOfBirth,Email,Password,PhoneNumber,UserDateOfBirth")] Users users)

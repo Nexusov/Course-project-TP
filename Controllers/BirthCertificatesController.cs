@@ -66,8 +66,6 @@ namespace Course_Project_TP_6.Controllers
         }
 
         // POST: BirthCertificates/Create
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "BirthCertificate_Id,User_Id,DateOfIssue,IssuedBy,MothersFIO,FathersFIO,Number")] BirthCertificate birthCertificate)
@@ -114,8 +112,7 @@ namespace Course_Project_TP_6.Controllers
         }
 
         // POST: BirthCertificates/Edit/5
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "BirthCertificate_Id,User_Id,DateOfIssue,IssuedBy,MothersFIO,FathersFIO,Number")] BirthCertificate birthCertificate)

@@ -66,8 +66,7 @@ namespace Course_Project_TP_6.Controllers
         }
 
         // POST: Passports/Create
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Passport_Id,User_Id,IssuedBy,DateOfIssue,DepartamentCode,Number")] Passport passport)
@@ -114,8 +113,7 @@ namespace Course_Project_TP_6.Controllers
         }
 
         // POST: Passports/Edit/5
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Passport_Id,User_Id,IssuedBy,DateOfIssue,DepartamentCode,Number")] Passport passport)

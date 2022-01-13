@@ -148,8 +148,7 @@ namespace Course_Project_TP_6.Controllers
         }
 
         // POST: Orders/Edit/5
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Order_Id,User_Id,Status_Id,OrderType_Id,OrderName,CreationDate")] Orders orders)
