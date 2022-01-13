@@ -80,6 +80,7 @@ namespace Course_Project_TP_6.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.Unauthorized); 
             }
 
+            driversLicense.Name = "1";
             if (ModelState.IsValid)
             {
                 db.DriversLicense.Add(driversLicense);

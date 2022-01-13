@@ -23,6 +23,7 @@ namespace Course_Project_TP_6.Models
         public System.DateTime DateOfIssue { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyy}", ApplyFormatInEditMode = true)]
         public System.DateTime ExpiringDate { get; set; }
+        [StringLength(30)]
         public string CityOfIssue { get; set; }
         public int Number { get; set; }
     

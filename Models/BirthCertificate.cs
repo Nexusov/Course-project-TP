@@ -19,8 +19,11 @@ namespace Course_Project_TP_6.Models
         public int User_Id { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyy}", ApplyFormatInEditMode = true)]
         public System.DateTime DateOfIssue { get; set; }
+        [StringLength(30)]
         public string IssuedBy { get; set; }
+        [StringLength(30)]
         public string MothersFIO { get; set; }
+        [StringLength(30)]
         public string FathersFIO { get; set; }
         public int Number { get; set; }
     

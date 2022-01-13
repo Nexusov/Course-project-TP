@@ -19,11 +19,17 @@ namespace Course_Project_TP_6.Models
         public int Passport_Id { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyy}", ApplyFormatInEditMode = true)]
         public System.DateTime RegistrationDate { get; set; }
+        [StringLength(30)]
         public string Region { get; set; }
+        [StringLength(30)]
         public string City { get; set; }
+        [StringLength(30)]
         public string District { get; set; }
+        [StringLength(30)]
         public string Street { get; set; }
+        [StringLength(30)]
         public string Building { get; set; }
+        [StringLength(30)]
         public string Apartament { get; set; }
     
         public virtual Passport Passport { get; set; }

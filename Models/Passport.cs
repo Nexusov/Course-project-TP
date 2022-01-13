@@ -23,6 +23,7 @@ namespace Course_Project_TP_6.Models
     
         public int Passport_Id { get; set; }
         public int User_Id { get; set; }
+        [StringLength(30)]
         public string IssuedBy { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyy}", ApplyFormatInEditMode = true)]
         public System.DateTime DateOfIssue { get; set; }

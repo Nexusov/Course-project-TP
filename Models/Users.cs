@@ -30,20 +30,25 @@ namespace Course_Project_TP_6.Models
         [Required]
         public int Gender_Id { get; set; }
         [Required]
+        [StringLength(30)]
         public string UserName { get; set; }
         [Required]
+        [StringLength(30)]
         public string UserLastName { get; set; }
         [Required]
+        [StringLength(30)]
         public string UserPatronymic { get; set; }
         [Required]
         public string CityOfBirth { get; set; }
         [Required, EmailAddress]
+        [StringLength(30)]
         public string Email { get; set; }
 
         [Required]
         [StringLength(16, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 5)]
         public string Password { get; set; }
         [Required]
+        [StringLength(30)]
         public string PhoneNumber { get; set; }
 
         [Required]

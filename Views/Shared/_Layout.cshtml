@@ -31,13 +31,28 @@
                 <ul class="nav navbar-nav">
                     @*<li>@Html.ActionLink("Домашняя страница", "Index", "Home")</li>*@
                     @*<li>@Html.ActionLink("Информация", "About", "Home")</li>
-                    <li>@Html.ActionLink("Связаться", "Contact", "Home")</li>*@
+                     <li>@Html.ActionLink("Связаться", "Contact", "Home")</li>*@
+
+                    @{
+                        ViewBag.IsAdmin = false;
+                    }
 
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <li>@Html.ActionLink("Профиль", "Index", "Users")</li>
-                        <li>@Html.ActionLink("Мои заявки", "Index", "Orders")</li>
-                        <li>@Html.ActionLink("Выход", "Logout", "Login")</li>
+
+
+                        if (!ViewBag.IsAdmin)
+                        {
+                            <li>@Html.ActionLink("Профиль", "Index", "Users")</li>
+                            <li>@Html.ActionLink("Мои заявки", "Index", "Orders")</li>
+                            <li>@Html.ActionLink("Выход", "Logout", "Login")</li>
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink("Профиль", "Index", "Users")</li>
+                            <li>@Html.ActionLink("Выход", "Logout", "Login")</li>
+                        }
+
                     }
                     else
                     {

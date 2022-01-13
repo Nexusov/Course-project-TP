@@ -96,6 +96,7 @@ namespace Course_Project_TP_6.Controllers
                 catch (Exception ex) 
                 {
                     Debug.WriteLine($"<Register()> Ошибка при добавлении записи: {ex}");
+                    ViewBag.OrderType_Id = new SelectList(db.OrderType, "OrderType_Id", "Name", orders.OrderType_Id);
                     return View(orders);
                 }
             }
