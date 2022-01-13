@@ -5,6 +5,16 @@
 <div class="jumbotron">
     <h1>Паспортный стол</h1>
     <p class="lead">Курсовой проект студента группы ИСТ-119 Грашина Егор</p>
+    @if (ViewBag.IsAdmin) 
+    {
+        <p>
+            @Html.ActionLink("Паспорта", "Index", "Passports", null, new { @class="btn btn-primary btn-lg" })
+            @Html.ActionLink("Регистрации", "Index", "Registrations", null, new { @class="btn btn-primary btn-lg" })
+            @Html.ActionLink("СНИЛСы", "Index", "SNILS", null, new { @class="btn btn-primary btn-lg" })
+            @Html.ActionLink("Водительские права", "Index", "DriverLicenses", null, new { @class="btn btn-primary btn-lg" })
+            @Html.ActionLink("Свидетельства о рождении", "Index", "BirthCertificates", null, new { @class="btn btn-primary btn-lg" })
+        </p>
+    }
     @*<p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>*@
 </div>
 

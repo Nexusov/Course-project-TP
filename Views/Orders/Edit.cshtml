@@ -19,7 +19,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.User_Id, "User_Id", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("User_Id", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DisplayFor(model => model.User_Id, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.User_Id, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -35,7 +35,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.OrderType_Id, "OrderType_Id", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("OrderType_Id", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DisplayFor(model => model.OrderType.Name, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.OrderType_Id, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -43,7 +43,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.OrderName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.OrderName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DisplayFor(model => model.OrderName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.OrderName, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -51,10 +51,15 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CreationDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CreationDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DisplayFor(model => model.CreationDate, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.CreationDate, "", new { @class = "text-danger" })
             </div>
         </div>
+        <script>
+            $(() => {
+                $("#CreationDate").datepicker();
+            });
+        </script>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

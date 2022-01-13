@@ -2,40 +2,36 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
-using Course_Project_TP_6.DAO;
 using Course_Project_TP_6.Models;
 
-
 namespace Course_Project_TP_6.Controllers
-{   
+{
     [Authorize]
-    public class UsersController : Controller
+    public class RegistrationsController : Controller
     {
-        UsersDAO usersDAO = new UsersDAO();
-
         private passportofficeEntities db = new passportofficeEntities();
 
-        // GET: Users
+        // GET: Registrations
         public ActionResult Index()
         {
-            // var users = db.Users.Include(u => u.Gender).Include(u => u.Role);
-            Users user = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
+            Users currentUser = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
+            bool isAdmin = currentUser.Role_Id == 2;
+            if (!isAdmin)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized); 
+            }
 
-            // var userID = usersDAO.GetRecordId(User.Identity.Name);
-            // Users user = db.Users.Find(userID.User_Id);
-            return View(user);
+            var registration = db.Registration.Include(r => r.Passport);
+            return View(registration.ToList());
         }
 
-        // GET: Users/Details/5
+        // GET: Registrations/Details/5
         public ActionResult Details(int? id)
         {
-           // Users users_Id = db.Users.Find(id);
             Users currentUser = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
             bool isAdmin = currentUser.Role_Id == 2;
             if (!isAdmin)
@@ -47,15 +43,15 @@ namespace Course_Project_TP_6.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Users users = db.Users.Find(id);
-            if (users == null)
+            Registration registration = db.Registration.Find(id);
+            if (registration == null)
             {
                 return HttpNotFound();
             }
-            return View(users);
+            return View(registration);
         }
 
-        // GET: Users/Create
+        // GET: Registrations/Create
         public ActionResult Create()
         {
             Users currentUser = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
@@ -65,17 +61,16 @@ namespace Course_Project_TP_6.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.Unauthorized); 
             }
 
-            ViewBag.Gender_Id = new SelectList(db.Gender, "Gender_Id", "Name");
-            ViewBag.Role_Id = new SelectList(db.Role, "Role_Id", "Name");
+            ViewBag.Passport_Id = new SelectList(db.Passport, "Passport_Id", "IssuedBy");
             return View();
         }
 
-        // POST: Users/Create
+        // POST: Registrations/Create
         // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
         // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "User_Id,Role_Id,Gender_Id,UserName,UserLastName,UserPatronymic,CityOfBirth,Email,Password,PhoneNumber,UserDateOfBirth")] Users users)
+        public ActionResult Create([Bind(Include = "Registration_Id,Passport_Id,RegistrationDate,Region,City,District,Street,Building,Apartament")] Registration registration)
         {
             Users currentUser = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
             bool isAdmin = currentUser.Role_Id == 2;
@@ -84,19 +79,26 @@ namespace Course_Project_TP_6.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.Unauthorized); 
             }
 
+            var passport = db.Passport.Where(x => x.Number == registration.Passport_Id).FirstOrDefault();
+            if (passport == null)
+            {
+                registration.Passport_Id = 0;
+                return View(registration);
+            }
+
+            registration.Passport_Id = passport.Passport_Id;
             if (ModelState.IsValid)
             {
-                db.Users.Add(users);
+                db.Registration.Add(registration);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Gender_Id = new SelectList(db.Gender, "Gender_Id", "Name", users.Gender_Id);
-            ViewBag.Role_Id = new SelectList(db.Role, "Role_Id", "Name", users.Role_Id);
-            return View(users);
+            ViewBag.Passport_Id = new SelectList(db.Passport, "Passport_Id", "IssuedBy", registration.Passport_Id);
+            return View(registration);
         }
 
-        // GET: Users/Edit/5
+        // GET: Registrations/Edit/5
         public ActionResult Edit(int? id)
         {
             Users currentUser = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
@@ -110,22 +112,21 @@ namespace Course_Project_TP_6.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Users users = db.Users.Find(id);
-            if (users == null)
+            Registration registration = db.Registration.Find(id);
+            if (registration == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.Gender_Id = new SelectList(db.Gender, "Gender_Id", "Name", users.Gender_Id);
-            ViewBag.Role_Id = new SelectList(db.Role, "Role_Id", "Name", users.Role_Id);
-            return View(users);
+            ViewBag.Passport_Id = new SelectList(db.Passport, "Passport_Id", "IssuedBy", registration.Passport_Id);
+            return View(registration);
         }
 
-        // POST: Users/Edit/5
+        // POST: Registrations/Edit/5
         // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
         // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "User_Id,Role_Id,Gender_Id,UserName,UserLastName,UserPatronymic,CityOfBirth,Email,Password,PhoneNumber,UserDateOfBirth")] Users users)
+        public ActionResult Edit([Bind(Include = "Registration_Id,Passport_Id,RegistrationDate,Region,City,District,Street,Building,Apartament")] Registration registration)
         {
             Users currentUser = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
             bool isAdmin = currentUser.Role_Id == 2;
@@ -136,16 +137,15 @@ namespace Course_Project_TP_6.Controllers
 
             if (ModelState.IsValid)
             {
-                db.Entry(users).State = EntityState.Modified;
+                db.Entry(registration).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Gender_Id = new SelectList(db.Gender, "Gender_Id", "Name", users.Gender_Id);
-            ViewBag.Role_Id = new SelectList(db.Role, "Role_Id", "Name", users.Role_Id);
-            return View(users);
+            ViewBag.Passport_Id = new SelectList(db.Passport, "Passport_Id", "IssuedBy", registration.Passport_Id);
+            return View(registration);
         }
 
-        // GET: Users/Delete/5
+        // GET: Registrations/Delete/5
         public ActionResult Delete(int? id)
         {
             Users currentUser = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
@@ -159,15 +159,15 @@ namespace Course_Project_TP_6.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Users users = db.Users.Find(id);
-            if (users == null)
+            Registration registration = db.Registration.Find(id);
+            if (registration == null)
             {
                 return HttpNotFound();
             }
-            return View(users);
+            return View(registration);
         }
 
-        // POST: Users/Delete/5
+        // POST: Registrations/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -179,8 +179,8 @@ namespace Course_Project_TP_6.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.Unauthorized); 
             }
 
-            Users users = db.Users.Find(id);
-            db.Users.Remove(users);
+            Registration registration = db.Registration.Find(id);
+            db.Registration.Remove(registration);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

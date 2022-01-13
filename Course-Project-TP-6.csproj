@@ -131,11 +131,15 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BirthCertificatesController.cs" />
+    <Compile Include="Controllers\DriversLicensesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\PassportsController.cs" />
+    <Compile Include="Controllers\RegistrationsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Controllers\SNILSController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="DAO\DAO.cs" />
     <Compile Include="DAO\RoleDAO.cs" />
@@ -277,6 +281,26 @@
     <Content Include="Views\Orders\Details.cshtml" />
     <Content Include="Views\Orders\Edit.cshtml" />
     <Content Include="Views\Orders\Index.cshtml" />
+    <Content Include="Views\BirthCertificates\Create.cshtml" />
+    <Content Include="Views\BirthCertificates\Delete.cshtml" />
+    <Content Include="Views\BirthCertificates\Details.cshtml" />
+    <Content Include="Views\BirthCertificates\Edit.cshtml" />
+    <Content Include="Views\BirthCertificates\Index.cshtml" />
+    <Content Include="Views\DriversLicenses\Create.cshtml" />
+    <Content Include="Views\DriversLicenses\Delete.cshtml" />
+    <Content Include="Views\DriversLicenses\Details.cshtml" />
+    <Content Include="Views\DriversLicenses\Edit.cshtml" />
+    <Content Include="Views\DriversLicenses\Index.cshtml" />
+    <Content Include="Views\Registrations\Create.cshtml" />
+    <Content Include="Views\Registrations\Delete.cshtml" />
+    <Content Include="Views\Registrations\Details.cshtml" />
+    <Content Include="Views\Registrations\Edit.cshtml" />
+    <Content Include="Views\Registrations\Index.cshtml" />
+    <Content Include="Views\SNILS\Create.cshtml" />
+    <Content Include="Views\SNILS\Delete.cshtml" />
+    <Content Include="Views\SNILS\Details.cshtml" />
+    <Content Include="Views\SNILS\Edit.cshtml" />
+    <Content Include="Views\SNILS\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

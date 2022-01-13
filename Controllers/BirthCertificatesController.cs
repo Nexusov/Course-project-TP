@@ -2,40 +2,36 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
-using Course_Project_TP_6.DAO;
 using Course_Project_TP_6.Models;
 
-
 namespace Course_Project_TP_6.Controllers
-{   
+{
     [Authorize]
-    public class UsersController : Controller
+    public class BirthCertificatesController : Controller
     {
-        UsersDAO usersDAO = new UsersDAO();
-
         private passportofficeEntities db = new passportofficeEntities();
 
-        // GET: Users
+        // GET: BirthCertificates
         public ActionResult Index()
         {
-            // var users = db.Users.Include(u => u.Gender).Include(u => u.Role);
-            Users user = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
+            Users currentUser = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
+            bool isAdmin = currentUser.Role_Id == 2;
+            if (!isAdmin)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized); 
+            }
 
-            // var userID = usersDAO.GetRecordId(User.Identity.Name);
-            // Users user = db.Users.Find(userID.User_Id);
-            return View(user);
+            var birthCertificate = db.BirthCertificate.Include(b => b.Users);
+            return View(birthCertificate.ToList());
         }
 
-        // GET: Users/Details/5
+        // GET: BirthCertificates/Details/5
         public ActionResult Details(int? id)
         {
-           // Users users_Id = db.Users.Find(id);
             Users currentUser = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
             bool isAdmin = currentUser.Role_Id == 2;
             if (!isAdmin)
@@ -47,15 +43,15 @@ namespace Course_Project_TP_6.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Users users = db.Users.Find(id);
-            if (users == null)
+            BirthCertificate birthCertificate = db.BirthCertificate.Find(id);
+            if (birthCertificate == null)
             {
                 return HttpNotFound();
             }
-            return View(users);
+            return View(birthCertificate);
         }
 
-        // GET: Users/Create
+        // GET: BirthCertificates/Create
         public ActionResult Create()
         {
             Users currentUser = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
@@ -65,17 +61,16 @@ namespace Course_Project_TP_6.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.Unauthorized); 
             }
 
-            ViewBag.Gender_Id = new SelectList(db.Gender, "Gender_Id", "Name");
-            ViewBag.Role_Id = new SelectList(db.Role, "Role_Id", "Name");
+            ViewBag.User_Id = new SelectList(db.Users, "User_Id", "UserName");
             return View();
         }
 
-        // POST: Users/Create
+        // POST: BirthCertificates/Create
         // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
         // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "User_Id,Role_Id,Gender_Id,UserName,UserLastName,UserPatronymic,CityOfBirth,Email,Password,PhoneNumber,UserDateOfBirth")] Users users)
+        public ActionResult Create([Bind(Include = "BirthCertificate_Id,User_Id,DateOfIssue,IssuedBy,MothersFIO,FathersFIO,Number")] BirthCertificate birthCertificate)
         {
             Users currentUser = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
             bool isAdmin = currentUser.Role_Id == 2;
@@ -86,17 +81,16 @@ namespace Course_Project_TP_6.Controllers
 
             if (ModelState.IsValid)
             {
-                db.Users.Add(users);
+                db.BirthCertificate.Add(birthCertificate);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Gender_Id = new SelectList(db.Gender, "Gender_Id", "Name", users.Gender_Id);
-            ViewBag.Role_Id = new SelectList(db.Role, "Role_Id", "Name", users.Role_Id);
-            return View(users);
+            ViewBag.User_Id = new SelectList(db.Users, "User_Id", "UserName", birthCertificate.User_Id);
+            return View(birthCertificate);
         }
 
-        // GET: Users/Edit/5
+        // GET: BirthCertificates/Edit/5
         public ActionResult Edit(int? id)
         {
             Users currentUser = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
@@ -110,22 +104,21 @@ namespace Course_Project_TP_6.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Users users = db.Users.Find(id);
-            if (users == null)
+            BirthCertificate birthCertificate = db.BirthCertificate.Find(id);
+            if (birthCertificate == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.Gender_Id = new SelectList(db.Gender, "Gender_Id", "Name", users.Gender_Id);
-            ViewBag.Role_Id = new SelectList(db.Role, "Role_Id", "Name", users.Role_Id);
-            return View(users);
+            ViewBag.User_Id = new SelectList(db.Users, "User_Id", "UserName", birthCertificate.User_Id);
+            return View(birthCertificate);
         }
 
-        // POST: Users/Edit/5
+        // POST: BirthCertificates/Edit/5
         // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
         // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "User_Id,Role_Id,Gender_Id,UserName,UserLastName,UserPatronymic,CityOfBirth,Email,Password,PhoneNumber,UserDateOfBirth")] Users users)
+        public ActionResult Edit([Bind(Include = "BirthCertificate_Id,User_Id,DateOfIssue,IssuedBy,MothersFIO,FathersFIO,Number")] BirthCertificate birthCertificate)
         {
             Users currentUser = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
             bool isAdmin = currentUser.Role_Id == 2;
@@ -136,16 +129,15 @@ namespace Course_Project_TP_6.Controllers
 
             if (ModelState.IsValid)
             {
-                db.Entry(users).State = EntityState.Modified;
+                db.Entry(birthCertificate).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Gender_Id = new SelectList(db.Gender, "Gender_Id", "Name", users.Gender_Id);
-            ViewBag.Role_Id = new SelectList(db.Role, "Role_Id", "Name", users.Role_Id);
-            return View(users);
+            ViewBag.User_Id = new SelectList(db.Users, "User_Id", "UserName", birthCertificate.User_Id);
+            return View(birthCertificate);
         }
 
-        // GET: Users/Delete/5
+        // GET: BirthCertificates/Delete/5
         public ActionResult Delete(int? id)
         {
             Users currentUser = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
@@ -159,15 +151,15 @@ namespace Course_Project_TP_6.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Users users = db.Users.Find(id);
-            if (users == null)
+            BirthCertificate birthCertificate = db.BirthCertificate.Find(id);
+            if (birthCertificate == null)
             {
                 return HttpNotFound();
             }
-            return View(users);
+            return View(birthCertificate);
         }
 
-        // POST: Users/Delete/5
+        // POST: BirthCertificates/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -179,8 +171,8 @@ namespace Course_Project_TP_6.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.Unauthorized); 
             }
 
-            Users users = db.Users.Find(id);
-            db.Users.Remove(users);
+            BirthCertificate birthCertificate = db.BirthCertificate.Find(id);
+            db.BirthCertificate.Remove(birthCertificate);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

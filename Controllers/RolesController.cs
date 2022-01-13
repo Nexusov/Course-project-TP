@@ -10,6 +10,7 @@ using Course_Project_TP_6.Models;
 
 namespace Course_Project_TP_6.Controllers
 {
+    [Authorize]
     public class RolesController : Controller
     {
         private passportofficeEntities db = new passportofficeEntities();
@@ -17,12 +18,26 @@ namespace Course_Project_TP_6.Controllers
         // GET: Roles
         public ActionResult Index()
         {
+            Users currentUser = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
+            bool isAdmin = currentUser.Role_Id == 2;
+            if (!isAdmin)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized); 
+            }
+
             return View(db.Role.ToList());
         }
 
         // GET: Roles/Details/5
         public ActionResult Details(int? id)
         {
+            Users currentUser = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
+            bool isAdmin = currentUser.Role_Id == 2;
+            if (!isAdmin)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized); 
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -38,6 +53,13 @@ namespace Course_Project_TP_6.Controllers
         // GET: Roles/Create
         public ActionResult Create()
         {
+            Users currentUser = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
+            bool isAdmin = currentUser.Role_Id == 2;
+            if (!isAdmin)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized); 
+            }
+
             return View();
         }
 
@@ -48,6 +70,13 @@ namespace Course_Project_TP_6.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Role_Id,Name")] Role role)
         {
+            Users currentUser = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
+            bool isAdmin = currentUser.Role_Id == 2;
+            if (!isAdmin)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized); 
+            }
+
             if (ModelState.IsValid)
             {
                 db.Role.Add(role);
@@ -61,6 +90,13 @@ namespace Course_Project_TP_6.Controllers
         // GET: Roles/Edit/5
         public ActionResult Edit(int? id)
         {
+            Users currentUser = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
+            bool isAdmin = currentUser.Role_Id == 2;
+            if (!isAdmin)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized); 
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -80,6 +116,13 @@ namespace Course_Project_TP_6.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Role_Id,Name")] Role role)
         {
+            Users currentUser = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
+            bool isAdmin = currentUser.Role_Id == 2;
+            if (!isAdmin)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized); 
+            }
+
             if (ModelState.IsValid)
             {
                 db.Entry(role).State = EntityState.Modified;
@@ -92,6 +135,13 @@ namespace Course_Project_TP_6.Controllers
         // GET: Roles/Delete/5
         public ActionResult Delete(int? id)
         {
+            Users currentUser = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
+            bool isAdmin = currentUser.Role_Id == 2;
+            if (!isAdmin)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized); 
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -109,6 +159,13 @@ namespace Course_Project_TP_6.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            Users currentUser = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
+            bool isAdmin = currentUser.Role_Id == 2;
+            if (!isAdmin)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized); 
+            }
+            
             Role role = db.Role.Find(id);
             db.Role.Remove(role);
             db.SaveChanges();

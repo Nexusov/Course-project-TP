@@ -10,6 +10,7 @@ using Course_Project_TP_6.Models;
 
 namespace Course_Project_TP_6.Controllers
 {
+    [Authorize]
     public class PassportsController : Controller
     {
         private passportofficeEntities db = new passportofficeEntities();
@@ -17,6 +18,13 @@ namespace Course_Project_TP_6.Controllers
         // GET: Passports
         public ActionResult Index()
         {
+            Users currentUser = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
+            bool isAdmin = currentUser.Role_Id == 2;
+            if (!isAdmin)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized); 
+            }
+
             var passport = db.Passport.Include(p => p.Users);
             return View(passport.ToList());
         }
@@ -24,6 +32,13 @@ namespace Course_Project_TP_6.Controllers
         // GET: Passports/Details/5
         public ActionResult Details(int? id)
         {
+            Users currentUser = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
+            bool isAdmin = currentUser.Role_Id == 2;
+            if (!isAdmin)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized); 
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -39,6 +54,13 @@ namespace Course_Project_TP_6.Controllers
         // GET: Passports/Create
         public ActionResult Create()
         {
+            Users currentUser = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
+            bool isAdmin = currentUser.Role_Id == 2;
+            if (!isAdmin)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized); 
+            }
+
             ViewBag.User_Id = new SelectList(db.Users, "User_Id", "UserName");
             return View();
         }
@@ -50,6 +72,13 @@ namespace Course_Project_TP_6.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Passport_Id,User_Id,IssuedBy,DateOfIssue,DepartamentCode,Number")] Passport passport)
         {
+            Users currentUser = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
+            bool isAdmin = currentUser.Role_Id == 2;
+            if (!isAdmin)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized); 
+            }
+
             if (ModelState.IsValid)
             {
                 db.Passport.Add(passport);
@@ -64,6 +93,13 @@ namespace Course_Project_TP_6.Controllers
         // GET: Passports/Edit/5
         public ActionResult Edit(int? id)
         {
+            Users currentUser = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
+            bool isAdmin = currentUser.Role_Id == 2;
+            if (!isAdmin)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized); 
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -84,6 +120,13 @@ namespace Course_Project_TP_6.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Passport_Id,User_Id,IssuedBy,DateOfIssue,DepartamentCode,Number")] Passport passport)
         {
+            Users currentUser = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
+            bool isAdmin = currentUser.Role_Id == 2;
+            if (!isAdmin)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized); 
+            }
+
             if (ModelState.IsValid)
             {
                 db.Entry(passport).State = EntityState.Modified;
@@ -97,6 +140,13 @@ namespace Course_Project_TP_6.Controllers
         // GET: Passports/Delete/5
         public ActionResult Delete(int? id)
         {
+            Users currentUser = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
+            bool isAdmin = currentUser.Role_Id == 2;
+            if (!isAdmin)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized); 
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -114,6 +164,13 @@ namespace Course_Project_TP_6.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            Users currentUser = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
+            bool isAdmin = currentUser.Role_Id == 2;
+            if (!isAdmin)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized); 
+            }
+
             Passport passport = db.Passport.Find(id);
             db.Passport.Remove(passport);
             db.SaveChanges();

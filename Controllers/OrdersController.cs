@@ -8,7 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Course_Project_TP_6.Models;
-// using Course_Project_TP_6.Models.CreditCard;
+
 
 namespace Course_Project_TP_6.Controllers
 {
@@ -21,9 +21,9 @@ namespace Course_Project_TP_6.Controllers
         public ActionResult Index()
         {
             Users currentUser = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
-
-            IQueryable<Orders> orders;
             bool isAdmin = currentUser.Role_Id == 2;
+
+            IQueryable<Orders> orders;  
             if (!isAdmin)
             {
                 orders = db.Orders.Include(o => o.OrderType)
@@ -50,11 +50,20 @@ namespace Course_Project_TP_6.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Orders orders = db.Orders.Find(id);
             if (orders == null)
             {
                 return HttpNotFound();
             }
+
+            Users currentUser = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
+            bool isAdmin = currentUser.Role_Id == 2;
+            if (!isAdmin && orders.User_Id != currentUser.User_Id)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized); 
+            }
+
             return View(orders);
         }
 
@@ -105,6 +114,7 @@ namespace Course_Project_TP_6.Controllers
         // POST: Orders/Poshlina
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Poshlina(CreditCard card)
         {
             return RedirectToAction("Index");
@@ -122,6 +132,14 @@ namespace Course_Project_TP_6.Controllers
             {
                 return HttpNotFound();
             }
+
+            Users currentUser = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
+            bool isAdmin = currentUser.Role_Id == 2;
+            if (!isAdmin)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized); 
+            }
+
             ViewBag.OrderType_Id = new SelectList(db.OrderType, "OrderType_Id", "Name", orders.OrderType_Id);
             ViewBag.Status_Id = new SelectList(db.OrderStatus, "Status_Id", "Name", orders.Status_Id);
             ViewBag.User_Id = new SelectList(db.Users, "User_Id", "UserName", orders.User_Id);
@@ -159,6 +177,14 @@ namespace Course_Project_TP_6.Controllers
             {
                 return HttpNotFound();
             }
+
+            Users currentUser = db.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
+            bool isAdmin = currentUser.Role_Id == 2;
+            if (!isAdmin && orders.User_Id != currentUser.User_Id)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized); 
+            }
+
             return View(orders);
         }
 

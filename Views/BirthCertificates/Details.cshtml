@@ -1,0 +1,66 @@
+﻿@model Course_Project_TP_6.Models.BirthCertificate
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>BirthCertificate</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOfIssue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateOfIssue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IssuedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IssuedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MothersFIO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MothersFIO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FathersFIO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FathersFIO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Number)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Users.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Users.UserName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.BirthCertificate_Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
